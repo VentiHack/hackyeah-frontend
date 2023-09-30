@@ -48,17 +48,39 @@ const SubmitForm = () => {
         },
     });
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
+            navigator.geolocation.getCurrentPosition(async (position) => {
                 const { latitude, longitude } = position.coords;
-                console.log({
-                    ...values,
-                    knownAnimalSpecies: isChecked,
-                    latitude,
-                    longitude,
-                    timeDate: new Date().toISOString(),
-                });
+                const formData = new FormData();
+                formData.append("knownAnimalSpecies", isChecked.toString());
+                formData.append("animalSpecies", values.animalSpecies ?? "");
+                formData.append("additionalInfo", values.additionalInfo ?? "");
+
+                if (values.photo && values.photo[0])
+                    formData.append(
+                        "file",
+                        values.photo[0],
+                        values.photo[0].name
+                    );
+
+                formData.append("latitude", latitude.toString());
+                formData.append("longitude", longitude.toString());
+                formData.append("timeDate", new Date().toISOString());
+
+                try {
+                    const res = await fetch(
+                        "http://10.250.162.170:3000/upload",
+                        {
+                            method: "POST",
+                            body: formData,
+                        }
+                    );
+                    const data = await res.json();
+                    console.log(data);
+                } catch (error) {
+                    console.log("Error: ", error);
+                }
             });
         } else {
             console.log("Geolocation is not supported by this browser.");

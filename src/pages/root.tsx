@@ -4,8 +4,7 @@ import Nav from "@/components/menu/Nav";
 import { useLocation } from "react-router-dom";
 
 const Root = () => {
-  let location = useLocation();
-
+  const location = useLocation();
   return (
     <>
       {location.pathname !== "/" && <Header />}
