@@ -4,14 +4,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  let location = useLocation();
-  console.log(location);
-
-  let urlAdressSegment = location.pathname.split("/");
-  let urlAdressWithoutSlash = urlAdressSegment
+  const location = useLocation();
+  const urlAdressSegment = location.pathname.split("/");
+  const urlAdressWithoutSlash = urlAdressSegment
     .filter((segment) => segment !== "")
     .pop();
-  let pageName = urlAdressWithoutSlash ? urlAdressWithoutSlash : "";
+  const pageName = urlAdressWithoutSlash ? urlAdressWithoutSlash : "";
 
   return (
     <header className="h-[10svh] flex items-center justify-between w-full p-4">

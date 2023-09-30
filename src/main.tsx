@@ -7,6 +7,7 @@ import Animals from "./pages/animals.tsx";
 import Map from "./pages/map.tsx";
 import Root from "./pages/root.tsx";
 import SubmitForm from "./pages/submitForm.tsx";
+import Profile from "./pages/profile.tsx";
 
 const router = createBrowserRouter([
     {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
         children: [
             { index: true, element: <Home /> },
             { path: "map", element: <Map /> },
-            { path: "profile/:userId", element: <div>Profile</div> },
+            { path: "profile", element: <Profile /> },
             { path: "animals", element: <Animals /> },
             { path: "submitform", element: <SubmitForm /> },
         ],
