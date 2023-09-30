@@ -1,28 +1,28 @@
-// import { Link } from "react-router-dom";
-import { Button } from "../components/ui/button";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-    return (
-        <div className="min-h-screen flex items-center flex-col justify-around">
-            <span className="text-center">
-                <h1 className="text-4xl leading-6 mb-2 font-bold">
-                    AnimalFinder
-                </h1>
-                <p className="text-slate-500">
-                    Report animals and mark their location on map
-                </p>
-            </span>
-            <div className="w-72 aspect-square border rounded-xl border-red-500"></div>
-            <span className="flex flex-col w-full items-center">
-                {/* <Link to={"/"} className="w-full flex justify-center"> */}
-                <Button className="text-xl px-8">Report now</Button>
-                {/* </Link> */}
-                {/* <Link to={"/"}> */}
-                <button>View all reported &rarr;</button>
-                {/* </Link> */}
-            </span>
-        </div>
-    );
+  return (
+    <div className="min-h-screen flex items-center flex-col justify-around p-4">
+      <div className="flex flex-col w-full items-center gap-4">
+        <h1 className="text-4xl leading-6 mb-2 font-bold">Gwizd</h1>
+        <p className="text-slate-500 text-center">
+          Zgłaszaj Znalezione Zwierzęta w Twojej Okolicy
+        </p>
+      </div>
+      <img src="/images/landingImage.png" className="w-72"></img>
+      <div className="flex flex-col w-full items-center gap-4">
+        <Link
+          to="map"
+          className="bg-greenAccent text-white text-xl p-4 rounded-xl"
+        >
+          Daj znać o zwierzakach!
+        </Link>
+        <Link to="animals" className="text-slate-500">
+          Zobacz wszystkie zgłoszenia
+        </Link>
+      </div>
+    </div>
+  );
 };
 
 export default Home;
