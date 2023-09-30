@@ -38,6 +38,8 @@ const formSchema = z.object({
 });
 
 const SubmitForm = () => {
+    const [isUploading, setIsUploading] = useState(false);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -49,6 +51,7 @@ const SubmitForm = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        setIsUploading(true);
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (position) => {
                 const { latitude, longitude } = position.coords;
@@ -66,7 +69,6 @@ const SubmitForm = () => {
 
                 formData.append("latitude", latitude.toString());
                 formData.append("longitude", longitude.toString());
-                formData.append("timeDate", new Date().toISOString());
 
                 try {
                     const res = await fetch(
@@ -85,6 +87,7 @@ const SubmitForm = () => {
         } else {
             console.log("Geolocation is not supported by this browser.");
         }
+        setIsUploading(false);
     };
 
     const [isChecked, setIsChecked] = useState(false);
@@ -182,8 +185,9 @@ const SubmitForm = () => {
 
                         <span className="flex justify-center">
                             <Button
-                                className="bg-greenAccent text-white text-xl p-4 rounded-xl px-8"
+                                className="bg-greenAccent text-white text-xl p-4 rounded-xl px-8 disabled:cursor-not-allowed"
                                 type="submit"
+                                disabled={isUploading}
                             >
                                 Submit
                             </Button>
