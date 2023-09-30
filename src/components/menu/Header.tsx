@@ -14,7 +14,7 @@ const Header = () => {
   let pageName = urlAdressWithoutSlash ? urlAdressWithoutSlash : "";
 
   return (
-    <header className="flex items-center justify-between w-full p-4">
+    <header className="h-[10svh] flex items-center justify-between w-full p-4">
       <Link to="..">
         <IconArrowNarrowLeft />
       </Link>
