@@ -72,7 +72,7 @@ const SubmitForm = () => {
 
                 try {
                     const res = await fetch(
-                        "http://10.250.162.170:3000/upload",
+                        "http://10.250.162.170:3000/api/submit",
                         {
                             method: "POST",
                             body: formData,
