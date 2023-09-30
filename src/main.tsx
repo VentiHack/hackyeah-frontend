@@ -10,22 +10,22 @@ import SubmitForm from "./pages/submitForm.tsx";
 import Profile from "./pages/profile.tsx";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Root />,
-        errorElement: <div> Error</div>,
-        children: [
-            { index: true, element: <Home /> },
-            { path: "map", element: <Map /> },
-            { path: "profile", element: <Profile /> },
-            { path: "animals", element: <Animals /> },
-            { path: "submitform", element: <SubmitForm /> },
-        ],
-    },
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <div> Error</div>,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "map", element: <Map /> },
+      { path: "profile", element: <Profile /> },
+      { path: "animals", element: <Animals /> },
+      { path: "submitform", element: <SubmitForm /> },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );

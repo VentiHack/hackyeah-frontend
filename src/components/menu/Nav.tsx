@@ -10,9 +10,13 @@ const Nav = () => {
             <IconMap2 size={32} color={isActive ? "#0CCA2B" : "#020817"} />
           )}
         </NavLink>
-        <div className="w-[60px] h-[60px] flex items-center justify-center shadow-md rounded-full">
+        <NavLink
+          to="submitform"
+          className="w-[60px] h-[60px] flex items-center justify-center shadow-md rounded-full"
+        >
           <IconPlus size={32} />
-        </div>
+        </NavLink>
+
         <NavLink to="animals">
           {({ isActive }) => (
             <IconDog size={32} color={isActive ? "#0CCA2B" : "#020817"} />

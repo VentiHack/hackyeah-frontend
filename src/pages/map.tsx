@@ -1,6 +1,17 @@
 import { useEffect } from "react";
 
 const Map = () => {
+  const fetchDataHandler = async () => {
+    const response = await fetch("http://10.250.162.170:3000/api");
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Could not fetch prices");
+    }
+
+    console.log(data);
+  };
+
   const initMap = () => {
     ILITEAPI.init({
       divId: "iapi",
@@ -35,6 +46,7 @@ const Map = () => {
 
   useEffect(() => {
     initMap();
+    fetchDataHandler();
   }, []);
 
   return (
