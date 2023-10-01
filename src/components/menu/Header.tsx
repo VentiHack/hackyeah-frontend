@@ -17,7 +17,7 @@ const Header = () => {
         <IconArrowNarrowLeft />
       </Link>
       <h1 className="font-semibold text-lg">{pageName}</h1>
-      <Link to="profile">
+      <Link to="profil">
         {pageName === "profile" ? (
           <IconAdjustmentsHorizontal size={32} />
         ) : (

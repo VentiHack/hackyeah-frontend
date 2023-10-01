@@ -16,10 +16,10 @@ const router = createBrowserRouter([
     errorElement: <div> Error</div>,
     children: [
       { index: true, element: <Home /> },
-      { path: "map", element: <Map /> },
-      { path: "profile", element: <Profile /> },
-      { path: "animals", element: <Animals /> },
-      { path: "submitform", element: <SubmitForm /> },
+      { path: "mapa", element: <Map /> },
+      { path: "profil", element: <Profile /> },
+      { path: "zwierzeta", element: <Animals /> },
+      { path: "reportowanie", element: <SubmitForm /> },
     ],
   },
 ]);

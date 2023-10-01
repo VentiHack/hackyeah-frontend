@@ -1,7 +1,8 @@
 import { useEffect, useState, Suspense } from "react";
-import { IconMapPinCheck } from "@tabler/icons-react";
+import { IconMapPinCheck, IconPhone } from "@tabler/icons-react";
 import moment from "moment";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Animals = () => {
   const [activeType, setActiveType] = useState(true);
@@ -61,8 +62,20 @@ const Animals = () => {
               {animalsData.map((animal) => (
                 <li
                   key={animal.id}
-                  className="w-[100%] max-h-[40svh] flex flex-col shadow-md rounded-md "
+                  className="w-[100%] h-[45svh] flex flex-col shadow-md rounded-md"
                 >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <Avatar className="w-[40px] h-[40px]">
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                      <h2 className="font-medium">Jan Nowak</h2>
+                    </div>
+                    <div className="flex items-center text-center p-4">
+                      <IconPhone size={32} color="#0CCA2B" />
+                    </div>
+                  </div>
                   <img
                     className="w-full h-full object-cover rounded-md"
                     src={`http://10.250.162.170:3000${animal.img}`}

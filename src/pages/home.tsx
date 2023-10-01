@@ -12,12 +12,12 @@ const Home = () => {
       <img src="/images/landingImage.png" className="w-72"></img>
       <div className="flex flex-col w-full items-center gap-4">
         <Link
-          to="map"
+          to="mapa"
           className="bg-greenAccent text-white text-xl p-4 rounded-xl"
         >
           Daj znać o zwierzakach!
         </Link>
-        <Link to="animals" className="text-slate-500">
+        <Link to="zwierzeta" className="text-slate-500">
           Zobacz wszystkie zgłoszenia
         </Link>
       </div>

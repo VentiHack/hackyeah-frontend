@@ -88,10 +88,10 @@ const SubmitForm = () => {
 
   return (
     <>
-      <div className="p-4">
+      <div className="h-[80svh] flex justify-center items-center p-4">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
+            {/* <FormField
               control={form.control}
               name="knownAnimalSpecies"
               render={() => (
@@ -108,40 +108,40 @@ const SubmitForm = () => {
                   </FormControl>
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="animalSpecies"
               render={({ field }) => (
-                <FormItem className="p-4 border-x border-b mb-8 rounded-b-md">
-                  <FormLabel className={isChecked ? "" : "text-slate-500"}>
-                    Animal Species
+                <FormItem className="p-4 border-x border-b mb-4 rounded-b-md">
+                  <FormLabel className="text-md text-medium">
+                    Wpisz jakie zwierze widzisz
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="ryś" {...field} />
+                    <Input
+                      className="border focus:outline-none "
+                      placeholder="Sarna, jeleń, ryś"
+                      {...field}
+                    />
                   </FormControl>
-                  <FormDescription>This is the animal species</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
-              disabled={!isChecked}
+              // disabled={!isChecked}
             />
             <FormField
               control={form.control}
               name="additionalInfo"
               render={({ field }) => (
-                <FormItem className="mb-8 p-2">
-                  <FormLabel>Additional info</FormLabel>
+                <FormItem className="p-4 border-x border-b mb-4 rounded-b-md">
+                  <FormLabel>Podaj dodatkowe informacje</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Additional info about the animal"
-                      className="resize-none"
+                      placeholder="Powiedz nam coś o zwierzęciu które znalazłeś, jeśli niepokoi cię zachowania zwierzęcia napisz dlaczego"
+                      className="h-[150px] resize-none"
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>
-                    You can tell us more about the animal you found.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -151,28 +151,24 @@ const SubmitForm = () => {
               control={form.control}
               name="photo"
               render={() => (
-                <FormItem className="p-2 mb-8 rounded-md flex flex-col">
-                  <FormLabel>Upload a photo</FormLabel>
+                <FormItem className="p-4 border-x border-b mb-4 rounded-b-md">
+                  <FormLabel>Wrzuć zdjęcie zwierzęcia</FormLabel>
                   <FormControl>
                     <Input type="file" {...form.register("photo")} />
                   </FormControl>
-                  <FormDescription>
-                    Upload a photo to help others recognise the animal
-                  </FormDescription>
+
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <span className="flex justify-center">
-              <Button
-                className="bg-greenAccent text-white text-xl p-4 rounded-xl px-8 disabled:cursor-not-allowed"
-                disabled={isUploading}
-                type="submit"
-              >
-                Submit
-              </Button>
-            </span>
+            <Button
+              className="bg-greenAccent w-[100%]  text-white text-xl p-6 rounded-md px-8 disabled:cursor-not-allowed"
+              disabled={isUploading}
+              type="submit"
+            >
+              Opublikuj
+            </Button>
           </form>
         </Form>
       </div>
