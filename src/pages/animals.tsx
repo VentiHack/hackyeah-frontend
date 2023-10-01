@@ -21,7 +21,7 @@ const Animals = () => {
   }
 
   const fetchDataHandler = async () => {
-    const response = await fetch("http://10.250.162.170:3000/api");
+    const response = await fetch("http://10.250.162.30:3000/api");
 
     const data = await response.json();
     if (!response.ok) {
@@ -64,7 +64,7 @@ const Animals = () => {
                   key={animal.id}
                   className="w-[100%] h-[45svh] flex flex-col shadow-md rounded-md"
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="min-h-[20%] flex items-center justify-between">
                     <div className="flex items-center gap-4">
                       <Avatar className="w-[40px] h-[40px]">
                         <AvatarImage src="https://github.com/shadcn.png" />
@@ -76,11 +76,14 @@ const Animals = () => {
                       <IconPhone size={32} color="#0CCA2B" />
                     </div>
                   </div>
-                  <img
-                    className="w-full h-full object-cover rounded-md"
-                    src={`http://10.250.162.170:3000${animal.img}`}
-                  />
-                  <div className="flex justify-between items-center">
+                  <div></div>
+                  <div className="min-h-[60%] ">
+                    <img
+                      className="w-full h-full object-cover rounded-md"
+                      src={`http://10.250.162.30:3000${animal.img}`}
+                    />
+                  </div>
+                  <div className="min-h-[20%] flex justify-between items-center">
                     <div className="flex flex-col p-4">
                       <h3 className="font-semibold">Ostatnio widziany</h3>
                       <p>{moment(animal.createdAt).format("DD.MM.YYYY")}</p>

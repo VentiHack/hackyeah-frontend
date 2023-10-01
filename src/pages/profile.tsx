@@ -19,7 +19,7 @@ const Profile = () => {
   }
 
   const fetchDataHandler = async () => {
-    const response = await fetch("http://10.250.162.170:3000/api");
+    const response = await fetch("http://10.250.162.30:3000/api");
 
     const data = await response.json();
     if (!response.ok) {
@@ -35,7 +35,7 @@ const Profile = () => {
   return (
     <div className="h-[80vh] px-4 flex flex-col">
       <div className="flex-grow mt-4 overflow-auto">
-        <div className="flex flex-col  ">
+        <div className="flex flex-col mb-4">
           <div className="flex flex-col h-[200px] relative">
             <div className="h-[100%] overflow-hidden bg-center rounded-md bg-cover bg-[url('https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/07/top-20-small-dog-breeds.jpeg.jpg')]"></div>
             <Avatar className="w-[80px] h-[80px] absolute top-[125%] left-1/2 transform -translate-x-1/2 -translate-y-[125%]">
@@ -54,11 +54,13 @@ const Profile = () => {
               key={animal.id}
               className="w-[100%] h-[45svh] flex flex-col shadow-md rounded-md"
             >
-              <img
-                className="w-full h-full object-cover rounded-md"
-                src={`http://10.250.162.170:3000${animal.img}`}
-              />
-              <div className="flex justify-between items-center">
+              <div className="min-h-[80%] ">
+                <img
+                  className="w-full h-full object-cover rounded-md"
+                  src={`http://10.250.162.30:3000${animal.img}`}
+                />
+              </div>
+              <div className="min-h-[20%] flex justify-between">
                 <div className="flex flex-col p-4">
                   <h3 className="font-semibold">Ostatnio widziany</h3>
                   <p>{moment(animal.createdAt).format("DD.MM.YYYY")}</p>
