@@ -1,41 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import { IconMapPinCheck } from "@tabler/icons-react";
+import moment from "moment";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Animals = () => {
   const [activeType, setActiveType] = useState(true);
+  const [animalsData, setAnimalsData] = useState<Animal[]>([]);
 
-  const dummyAnimalsData = [
-    {
-      animalSpecies: "Lew",
-      knownAnimalSpecies: true,
-      latitude: -1.2921,
-      longitude: 36.8219,
-      timeDate: "2023-09-30",
-      additionalInfo:
-        "Ten lew jest często spotykany w Parku Narodowym Serengeti.",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/a/ae/African_Lion_Panthera_leo_Male_Pittsburgh_2800px.jpg",
-    },
-    {
-      animalSpecies: "Słoń",
-      knownAnimalSpecies: true,
-      latitude: -3.0674,
-      longitude: 37.3556,
-      timeDate: "2023-09-30",
-      additionalInfo: "Słonie są znane ze swojej inteligencji i wielkich uszu.",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/3/37/African_Bush_Elephant.jpg",
-    },
-    {
-      animalSpecies: "Żyrafa",
-      knownAnimalSpecies: true,
-      latitude: 0.4972,
-      longitude: 37.2762,
-      timeDate: "2023-09-30",
-      additionalInfo: "Żyrafy mają bardzo długie szyje i są roślinożercami.",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/4/46/Giraffe_in_Selous_Game_Reserve_%289%29_%2829049301195%29%2C_crop.jpg",
-    },
-  ];
+  interface Animal {
+    additionalInfo: string;
+    animalSpecies: string;
+    createdAt: string;
+    id: number;
+    img: string;
+    knownAnimalSpecies: boolean;
+    latitude: number;
+    longitude: number;
+    updatedAt: string;
+  }
+
+  const fetchDataHandler = async () => {
+    const response = await fetch("http://10.250.162.170:3000/api");
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Could not fetch prices");
+    }
+    setAnimalsData(data);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchDataHandler();
+  }, []);
+
   return (
     <>
       <div className="h-[80svh] px-4 flex flex-col">
@@ -58,16 +56,30 @@ const Animals = () => {
           </h2>
         </div>
         <div className="flex-grow mt-4 overflow-auto">
-          <ul className="flex flex-col items-center gap-4">
-            {dummyAnimalsData.map((animal) => (
-              <li className="w-[100%] h-[40svh] shadow-md rounded-md ">
-                <img
-                  className="w-full h-full object-cover rounded-md"
-                  src={animal.image}
-                />
-              </li>
-            ))}
-          </ul>
+          <Suspense fallback={<Skeleton />}>
+            <ul className="flex flex-col items-center gap-4">
+              {animalsData.map((animal) => (
+                <li
+                  key={animal.id}
+                  className="w-[100%] max-h-[40svh] flex flex-col shadow-md rounded-md "
+                >
+                  <img
+                    className="w-full h-full object-cover rounded-md"
+                    src={`http://10.250.162.170:3000${animal.img}`}
+                  />
+                  <div className="flex justify-between items-center">
+                    <div className="flex flex-col p-4">
+                      <h3 className="font-semibold">Ostatnio widziany</h3>
+                      <p>{moment(animal.createdAt).format("DD.MM.YYYY")}</p>
+                    </div>
+                    <div className="flex items-center text-center p-4">
+                      <IconMapPinCheck size={32} color="#0CCA2B" />
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Suspense>
         </div>
       </div>
     </>

@@ -2,7 +2,7 @@ import { IconArrowNarrowLeft } from "@tabler/icons-react";
 import { useLocation } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link } from "react-router-dom";
-
+import { IconAdjustmentsHorizontal } from "@tabler/icons-react";
 const Header = () => {
   const location = useLocation();
   const urlAdressSegment = location.pathname.split("/");
@@ -17,10 +17,16 @@ const Header = () => {
         <IconArrowNarrowLeft />
       </Link>
       <h1 className="font-semibold text-lg">{pageName}</h1>
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      <Link to="profile">
+        {pageName === "profile" ? (
+          <IconAdjustmentsHorizontal size={32} />
+        ) : (
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        )}
+      </Link>
     </header>
   );
 };
