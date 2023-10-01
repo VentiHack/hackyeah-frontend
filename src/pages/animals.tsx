@@ -85,7 +85,12 @@ const Animals = () => {
                   </div>
                   <div className="min-h-[20%] flex justify-between items-center">
                     <div className="flex flex-col p-4">
-                      <h3 className="font-semibold">Ostatnio widziany</h3>
+                      <h3 className="font-semibold">
+                        Ostatnio widziany -{" "}
+                        {animal.animalSpecies === "unknown"
+                          ? ""
+                          : animal.animalSpecies}
+                      </h3>
                       <p>{moment(animal.createdAt).format("DD.MM.YYYY")}</p>
                     </div>
                     <div className="flex items-center text-center p-4">
