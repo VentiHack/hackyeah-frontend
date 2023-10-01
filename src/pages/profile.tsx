@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { IconMapPinCheck } from "@tabler/icons-react";
+import { IconMapPinCheck, IconInfoCircle } from "@tabler/icons-react";
 import moment from "moment";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const Profile = () => {
   const [animalsData, setAnimalsData] = useState<Animal[]>([]);
@@ -46,6 +54,7 @@ const Profile = () => {
           <div className="flex flex-col items-center mt-8 gap-2">
             <h1 className="font-semibold text-2xl">Adam Nowak</h1>
             <h2 className="font-semibold text-md">@adam03</h2>
+            <h3 className="font-sizebold text-md">Zreportowane zwierzęta</h3>
           </div>
         </div>
         <ul className="flex flex-col items-center gap-4">
@@ -67,6 +76,32 @@ const Profile = () => {
                 </div>
                 <div className="flex items-center text-center p-4">
                   <IconMapPinCheck size={32} color="#0CCA2B" />
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <IconInfoCircle size={32} color="#0CCA2B" />
+                    </DialogTrigger>
+                    <DialogContent className="w-[80%]">
+                      <DialogHeader>
+                        <DialogTitle className="text-lg font-semibold">
+                          Informacje
+                        </DialogTitle>
+                        <DialogDescription>
+                          <ul>
+                            <li className="text-md font-medium">
+                              Gatunek: {animal.animalSpecies}
+                            </li>
+                            <li className="text-md font-medium">
+                              Data zreportowania:{" "}
+                              {moment(animal.createdAt).format("DD.MM.YYYY")}
+                            </li>
+                            <li className="text-md font-medium">
+                              Dodatkowe informacje: {animal.additionalInfo}
+                            </li>
+                          </ul>
+                        </DialogDescription>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
             </li>
