@@ -1,61 +1,72 @@
-import { useEffect } from "react";
+import { LatLngExpression } from "leaflet";
+import { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+
+type Data = {
+    id: number;
+    img: string;
+    animalSpecies: string;
+    knownAnimalSpecies: boolean;
+    latitude: number;
+    longitude: number;
+    additionalInfo: string;
+    createdAt: Date;
+};
+
+const fetchDataHandler = async () => {
+    try {
+        return await fetch("http://10.250.162.170:3000/api")
+            .then((data) => data.json())
+            .then((data) =>
+                data.map((entry: Data) => [
+                    entry.latitude - 1.85,
+                    entry.longitude + 0.8,
+                ])
+            );
+    } catch (error) {
+        console.error(error);
+        return;
+    }
+};
 
 const Map = () => {
-  const fetchDataHandler = async () => {
-    const response = await fetch("http://10.250.162.170:3000/api");
+    const [markerData, setMarkerData] = useState<[number, number][]>();
 
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.message || "Could not fetch prices");
-    }
+    useEffect(() => {
+        fetchDataHandler().then((markers) => setMarkerData(markers));
+    }, []);
 
-    console.log(data);
-  };
+    const center: LatLngExpression =
+        markerData && markerData.length > 0 ? markerData[0] : [50, 20];
 
-  const initMap = () => {
-    ILITEAPI.init({
-      divId: "iapi",
-      width: "100%",
-      height: "80svh",
-      activeGpMapId: "gp0",
-      activeGpMaps: ["gp0", "gp1"],
-      activeGpActions: ["pan", "fullExtent"],
-      scale: 3500,
-      marker: [
-        {
-          x: 362269,
-          y: 362264,
-          scale: 2000,
-          opts: {
-            title: "dymek nr 1",
-            content: "dymek",
-          },
-        },
-        {
-          x: 361968,
-          y: 362234,
-          scale: 2000,
-          opts: {
-            title: "dymek nr 2",
-            content: "dymek",
-          },
-        },
-      ],
-    });
-  };
+    console.log(markerData);
 
-  useEffect(() => {
-    initMap();
-    fetchDataHandler();
-  }, []);
-
-  return (
-    <>
-      <div className="h-[80svh] ">
-        <div id="iapi"></div>
-      </div>
-    </>
-  );
+    return (
+        <>
+            <link
+                rel="stylesheet"
+                href="https://unpkg.com/leaflet/dist/leaflet.css"
+            />
+            <div className="h-[80svh]">
+                <MapContainer center={center} zoom={10} zoomControl={true}>
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    {markerData &&
+                        markerData.map((marker, id) => {
+                            console.log(marker);
+                            return (
+                                <Marker 
+                                    position={[marker[0], marker[1]]}
+                                    key={id}
+                                />
+                            );
+                        })}
+                </MapContainer>
+            </div>
+        </>
+    );
 };
 
 export default Map;
